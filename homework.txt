@@ -1,0 +1,74 @@
+CREATE TABLE car (
+    id int NOT NULL AUTO_INCREMENT,
+	color varchar(255) NOT NULL,
+	model varchar(255) NOT NULL,
+    brand varchar(255) NOT NULL,
+    year_made int NOT NULL,
+	hp int NOT NULL,
+	cubp int NOT NULL,
+	extra_id int NOT NULL,
+    PRIMARY KEY (id),
+	FOREIGN KEY (extra_id) REFERENCES extra(id)
+    );
+
+
+CREATE TABLE extra (
+	id int NOT NULL AUTO_INCREMENT,
+	gas TINYINT(1) NOT NULL AUTO_INCREMENT,
+	aircondition varchar(255) NOT NULL,
+    climatronic varchar(255) NOT NULL,
+    seat_heating varchar(255) NOT NULL,
+	electric_window varchar(255) NOT NULL,
+    car_id int NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (car_id) REFERENCES car(id)
+    );
+
+
+CREATE TABLE car_user (
+	id int NOT NULL AUTO_INCREMENT,
+	username varchar(255) NOT NULL,
+    pass varchar(255) NOT NULL,
+    email varchar(255) NOT NULL,
+	age int NOT NULL,
+	firstname varchar(255) NOT NULL,
+	last_name varchar(255) NOT NULL,
+	address_id int NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (address_id) REFERENCES address(id)
+    );
+
+
+CREATE TABLE address (
+	id int NOT NULL AUTO_INCREMENT,
+	city varchar(255) NOT NULL,
+    district varchar(255) NOT NULL,
+    street varchar(255),
+	street_number int NOT NULL,
+    car_user int NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (car_user_id) REFERENCES car_user(id)
+    );
+
+
+CREATE TABLE car_addvert (
+	id int NOT NULL AUTO_INCREMENT,
+	description TEXT NOT NULL,
+	addvert_date DATE NOT NULL,
+    car int NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (car_id) REFERENCES car(id)
+    );
+
+
+INSERT INTO car_user (username, pass, email, age, firstname, last_name,	address_id)
+VALUES ('user1', 'shfshf', 'bmwist@gmai.com', 20, 'Pesho', 'Stoev', 2),
+('user2', 'hfhf', 'audista@gmai.com', 28, 'Joro', 'Blagoev', 1);
+
+INSERT INTO car_addvert (description, addvert_date, car)
+VALUES ('Mnogo qko bmw', '2018-02-03', 1),
+('Mnogo qko audi', '2018-01-03', 1);	
+
+INSERT INTO address (city, district, street, street_number)
+VALUES ('Sofia', 'Sv. Troica', ,242),
+('Sofia', 'Moderno Predgradie', 'Slivnica',21);

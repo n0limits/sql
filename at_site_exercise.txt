@@ -1,0 +1,81 @@
+CREATE TABLE criminal (
+    id int NOT NULL AUTO_INCREMENT,
+	firstname varchar(255) NOT NULL,
+	second_name varchar(255) NOT NULL,
+    last_name varchar(255) NOT NULL,
+    pin int NOT NULL,
+	age int NOT NULL,
+	prison_id int NOT NULL,
+    PRIMARY KEY (id),
+	FOREIGN KEY (prison_id) REFERENCES prison(id)
+    );
+
+CREATE TABLE prison (
+    id int NOT NULL AUTO_INCREMENT,
+	prison_name varchar(255) NOT NULL,
+    prison_adress varchar(255) NOT NULL,
+    max_prisoners_prison int NOT NULL,
+    PRIMARY KEY (id)
+    );
+
+
+CREATE TABLE crime (
+    id int NOT NULL AUTO_INCREMENT,
+	crime_name varchar(255) NOT NULL,
+    years_in_prison int NOT NULL,
+	criminal_id int NOT NULL,
+    judge_id int NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (criminal_id) REFERENCES criminal(id),
+    FOREIGN KEY (judge_id) REFERENCES judge(id)
+    );
+
+CREATE TABLE judge (
+    id int NOT NULL AUTO_INCREMENT,
+	first_name varchar(255) NOT NULL,
+    last_name varchar(255) NOT NULL,
+    age int NOT NULL,
+    salary int NOT NULL,
+    PRIMARY KEY (id) 
+    );
+
+
+CREATE TABLE guard (
+    id int NOT NULL AUTO_INCREMENT,
+	first_name varchar(255) NOT NULL,
+    last_name varchar(255) NOT NULL,
+    age int NOT NULL,
+    years_on_service int NOT NULL,
+    salary int NOT NULL,
+    prison_id int NOT NULL,
+    PRIMARY KEY (id),
+	FOREIGN KEY (prison_id) REFERENCES prison(id)
+    );
+
+
+
+
+
+INSERT INTO prison (prison_name, prison_adress, max_prisoners_prison, criminal_id)
+VALUES ('Gradski', 'Sofia', 540, 1),
+('Selski', 'Sofia', 300, 2);
+
+INSERT INTO criminal (firstname, second_name, last_name, pin, age)
+VALUES ('Pavel', 'Kradlivia', 'Kradec', 9927525, 25),
+('Ivanka', 'Kradlivata', 'Kradla', 374747474, 35);	
+
+INSERT INTO crime (crime_name, years_in_prison, criminal_id, judge_id)
+VALUES ('krajba', 3, 1, 1),
+('leka telesna povreda', 5, 2, 1);
+
+INSERT INTO judge (first_name, last_name, age, salary)
+VALUES ('Iavor', 'Sudiqta', 44, 4800),
+('Mario', 'Umnika', 38, 4500);
+
+INSERT INTO guard (first_name, last_name, age, years_on_service, salary)
+VALUES ('Pesho', 'Pazacha', 44, 12, 1500),
+('Gosho', 'Kechista', 29, 2, 1100),
+('Vanko', 'Edno', 38, 5, 22500);
+
+SELECT * FROM guard
+WHERE id = @0;
